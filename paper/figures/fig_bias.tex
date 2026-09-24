@@ -1,0 +1,22 @@
+% Figure: bias-control framework (threat -> control mapping)
+\begin{tikzpicture}[
+  threat/.style={draw, rounded corners=2pt, align=center, fill=red!6, font=\small, minimum width=48mm, minimum height=8mm},
+  ctrl/.style={draw, rounded corners=2pt, align=left, fill=black!4, font=\small, minimum width=98mm, minimum height=8mm},
+  arr/.style={-{Stealth[length=2.5mm]}, thick}
+]
+\foreach \i/\t/\c in {
+  0/{Look-ahead bias}/{Next-open execution; mechanical timestamp guards, validated by injection tests (\S 3.2)},
+  1/{Selection bias}/{Rule-based universe fixed before the window (\S 3.1)},
+  2/{Survivorship bias}/{Point-in-time selection; explicit delisting liquidation rule (\S 3.3)},
+  3/{Training leakage (S3--S5)}/{Calibration and tuning on strictly pre-window data (\S 3.2)},
+  4/{LLM memorization}/{Three-condition protocol; out-of-cutoff Track B cross-check (\S 3.4)},
+  5/{Multiple testing}/{Deflated Sharpe ratio over the frozen evaluation grid (\S 4.5)},
+  6/{Cost optimism}/{5/10/25 bps sensitivity; cost-fragile exclusion rule (\S 4.3, \S 5.5)},
+  7/{Researcher degrees of freedom}/{Frozen protocol, pre-committed interpretation rules, amendment log (App.\ D)}}{
+  \node[threat] (t\i) at (0, -\i*1.15) {\t};
+  \node[ctrl, anchor=west] (c\i) at (3.4, -\i*1.15) {\c};
+  \draw[arr] (t\i.east) -- (c\i.west);
+}
+\node[font=\small\bfseries, anchor=south] at (t0.north) {Threat};
+\node[font=\small\bfseries, anchor=south west] at (c0.north west) {Pre-specified control};
+\end{tikzpicture}

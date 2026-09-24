@@ -1,0 +1,38 @@
+# D.3 Strategy parameters (Freeze Document §3; manuscript §4.1)
+s1_buy_and_hold: { weighting: equal }
+
+s2_momentum:
+  lookback_months: 12
+  skip_most_recent_months: 1
+  rebalance: monthly
+
+s3_finbert_rule:
+  model: "ProsusAI/finbert"           # revision recorded at download
+  threshold_rule: "calibration-window Sharpe-maximizing percentile from {30,40,50,60,70}"
+  calibration_window: calibration     # references windows.calibration in data.yaml
+
+s4_gbt:
+  library: lightgbm                   # version recorded at download; seed 42
+  features:
+    - lagged_returns: [1, 5, 21]
+    - ma_ratios: [[10, 50], [50, 200]]
+    - realized_vol_days: 21
+    - volume_zscore_days: 21
+    - finbert_sentiment: [daily_mean, trailing_3d_mean]
+  search_space:
+    num_leaves: [15, 31, 63]
+    learning_rate: [0.01, 0.05, 0.1]
+    n_estimators: [100, 300, 500]
+    min_child_samples: [20, 50]
+    feature_fraction: [0.8, 1.0]
+  cv: { scheme: expanding_window, folds: 5, criterion: log_loss }
+  decision_rule: "long if P(up) > 0.5"
+
+s5_llm_scorer:
+  threshold_rule: same_procedure_as_s3  # recalibrated on S5's own score scale
+  news_window_trading_days: 3
+
+s6_llm_agent:
+  news_window_trading_days: 3
+  price_history_trading_days: 60
+  action_space: [long, flat]

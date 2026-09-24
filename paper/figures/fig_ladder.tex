@@ -1,0 +1,40 @@
+% Figure: the graded strategy ladder S1-S6 (vertical progression, redesigned)
+% Layout rules: fixed 9mm gaps; all arrows connect box centers; every
+% annotation sits in the inter-box gap, anchored west of the arrow with
+% fixed offset; single font family; no overlaps by construction.
+\begin{tikzpicture}[
+  rung/.style={draw, rounded corners=2pt, align=center, fill=black!4,
+               font=\small, minimum width=66mm, minimum height=11.5mm},
+  sut/.style={rung, fill=blue!8},
+  add/.style={font=\footnotesize\itshape, anchor=west},
+  role/.style={font=\footnotesize, anchor=west, text=black!60},
+  arr/.style={-{Stealth[length=2.5mm]}, thick}
+]
+\node[rung] (s1) at (0,0)     {\textbf{S1 --- equal-weight buy-and-hold}};
+\node[rung] (s2) at (0,-2.05) {\textbf{S2 --- time-series momentum}};
+\node[rung] (s3) at (0,-4.10) {\textbf{S3 --- FinBERT sentiment rule}};
+\node[rung] (s4) at (0,-6.15) {\textbf{S4 --- gradient-boosted trees}};
+\node[rung] (s5) at (0,-8.20) {\textbf{S5 --- LLM sentiment scorer}};
+\node[sut]  (s6) at (0,-10.25){\textbf{S6 --- LLM trading agent}};
+
+\draw[arr] (s1) -- (s2);
+\draw[arr] (s2) -- (s3);
+\draw[arr] (s3) -- (s4);
+\draw[arr] (s4) -- (s5);
+\draw[arr] (s5) -- (s6);
+
+% one added ingredient per arrow, in the gap, right of the arrow line
+\node[add] at (0.45,-1.025) {+ price anomaly};
+\node[add] at (0.45,-3.075) {+ text signal (news sentiment)};
+\node[add] at (0.45,-5.125) {+ statistical learning, same inputs};
+\node[add] at (0.45,-7.175) {LLM replaces FinBERT as scorer};
+\node[add] at (0.45,-9.225) {+ agency (autonomous decisions)};
+
+% role tags, right of each box with fixed offset
+\node[role] at (3.6,0)      {passive benchmark};
+\node[role] at (3.6,-2.05)  {baseline};
+\node[role] at (3.6,-4.10)  {baseline};
+\node[role] at (3.6,-6.15)  {baseline (critical control)};
+\node[role] at (3.6,-8.20)  {ablation variant};
+\node[role] at (3.6,-10.25) {system under test};
+\end{tikzpicture}

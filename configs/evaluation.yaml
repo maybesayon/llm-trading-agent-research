@@ -1,0 +1,26 @@
+# D.4/D.5 Evaluation grid and statistics (Freeze Document §2, §5; manuscript §4.3–§4.6)
+execution:
+  information_cutoff: "close of day t"
+  execution_time: "open of day t+1"
+
+costs_bps_per_side: [5, 10, 25]       # 10 is headline; all reported
+
+contamination_conditions: [original, anonymized, anonymized_shuffled_dates]
+
+statistics:
+  primary_endpoint: deflated_sharpe_ratio_vs_s1
+  bootstrap: { method: stationary, resamples: 10000, expected_block_length_days: 21,
+               block_length_sensitivity: [5, 63], ci_level: 0.95, seed: 2026 }
+  factor_model: fama_french_3
+
+regimes:                              # descriptive only; frozen definitions
+  bear_rule: "month-end S&P 500 close > 20% below running peak"
+  vix_terciles: within_evaluation_window
+
+audit:
+  budget_usd_total: 200
+  audit_share: 0.30
+  human_validation_n_rule: "min(200, 20% of audited rationales)"
+  kappa_guideline: 0.70               # continuous kappa + CI reported regardless
+  spot_check_fraction: 0.10
+  taxonomy: [sentiment, price_momentum, risk_management, mixed_other]

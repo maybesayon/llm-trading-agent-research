@@ -1,0 +1,34 @@
+# D.2 Data (Experimental Freeze Document §6; manuscript §3)
+universe:
+  rule: "top 20 S&P 500 constituents by market cap as of 2021-12-31"
+  as_of: "2021-12-31"
+  tickers: []                         # filled by the rule at pilot; frozen thereafter
+
+windows:
+  calibration: { start: "2019-01-02", end: "2021-12-31" }
+  track_a:     { start: "2022-01-03", end: "2023-12-29" }
+  track_b:     { start: "2026-01-02", end: "2026-06-30" }
+
+sources:
+  fnspid:
+    repository: "https://github.com/Zdong104/FNSPID_Financial_News_Dataset"
+    commit: RECORD_AT_DOWNLOAD
+    news_column_map:                  # confirm against actual files at pilot [PILOT->PARAM]
+      Date: timestamp
+      Stock_symbol: ticker
+      Article_title: headline
+  prices_primary: yfinance            # version recorded in snapshot manifest
+  prices_crosscheck: TBD_SECOND_SOURCE  # e.g., Stooq; fixed at pilot [PILOT->PARAM]
+  risk_free: { provider: FRED, series: DTB3 }
+  sp500_tr: { provider: yahoo, symbol: "^SP500TR" }
+  vix: { provider: yahoo, symbol: "^VIX" }
+  factors: { provider: french_data_library, file: "F-F_Research_Data_Factors_daily" }
+  track_b_news:                       # final configuration [PILOT->PARAM]
+    finnhub: { endpoint: company-news }
+    gdelt: { filters: TBD }
+
+density_criterion:                    # §3.5, frozen pre-pilot; never tuned on outcomes
+  trailing_window_trading_days: 3
+  m1_threshold: 0.90
+  m2_threshold: 0.95
+  max_failing_tickers: 5              # >5/20 -> protocol amendment (augment or halt)

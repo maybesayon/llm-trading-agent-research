@@ -1,0 +1,45 @@
+# Machine-readable mirror of the Experimental Freeze Document.
+# Every run logs hash_obj(this file). The hash is FINAL only when
+# freeze_status.pending is empty; src.utils.config.assert_frozen enforces
+# that no full-scale experiment runs before then.
+protocol_version: "1.0"
+freeze_document: experimental_freeze_document.md
+
+frozen:
+  universe_rule: "top 20 S&P 500 by market cap @ 2021-12-31"
+  track_a_window: ["2022-01-03", "2023-12-29"]
+  track_b_window: ["2026-01-02", "2026-06-30"]
+  calibration_window: ["2019-01-02", "2021-12-31"]
+  execution: "news <= close(t); execute open(t+1)"
+  costs_bps_per_side: [5, 10, 25]
+  conditions: [original, anonymized, anonymized_shuffled_dates]
+  density_criterion: { m1: 0.90, m2: 0.95, window_days: 3, max_failing: 5 }
+  bootstrap: { B: 10000, block_days: 21, sensitivity: [5, 63], seed: 2026 }
+  regime_bear_rule: "month-end >20% below running peak"
+  kappa_guideline: 0.70
+  spot_check_fraction: 0.10
+  audit_budget: { total_usd: 200, audit_share: 0.30 }
+  seeds: [11, 42, 2026]
+  model: { repo: "Qwen/Qwen3-14B", precision: bf16, quantization: none }
+  amendment_policy: "append-only log; data/infrastructure causes only"
+
+freeze_status:
+  pending:
+    - model.revision (record at download)
+    - model.downloaded_date
+    - inference.framework_version
+    - universe.tickers (apply rule at pilot)
+    - fnspid.commit + news_column_map confirmation
+    - prices_crosscheck source selection
+    - track_b_news final configuration
+    - audit sample N + human-validation N (budget rule + pilot cost)
+  amendments:                         # append-only; see Freeze Document D.8
+    - id: A-001
+      date: "2026-07-09"
+      category: instrument configuration correction
+      change: "generation.temperature 0.0 -> 0.7; generation.top_p 1.0 -> 0.8"
+      reason: "model validity: Qwen3 documentation advises against greedy
+        decoding; recommended non-thinking-mode sampling adopted.
+        Reproducibility preserved via fixed seeds, full call caching,
+        revision pinning, and experiment logging."
+      outcome_triggered: false

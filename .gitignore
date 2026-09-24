@@ -1,0 +1,31 @@
+# --- third-party data: never committed (size + redistribution licenses) ---
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# snapshot FILES stay local (third-party content); the hash manifest IS
+# committed — it is the reproducibility artifact (D.2/D.8)
+data/snapshots/*.csv.gz
+
+# --- reproducibility artifacts that ARE committed (do not ignore) ---
+# data/snapshots/manifest.json
+# results/            (pilot reports, run outputs, LLM call caches per D.8)
+# protocol.lock.yaml
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+venv/
+.venv/
+
+# --- local noise ---
+logs/*
+!logs/.gitkeep
+.DS_Store
+*.swp
+
+# --- local assistant context: never committed ---
+CLAUDE.md

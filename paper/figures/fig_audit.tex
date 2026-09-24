@@ -1,0 +1,21 @@
+% Figure: rationale-audit workflow
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, align=center, fill=black!4, font=\small, inner sep=4pt, minimum height=11mm},
+  arr/.style={-{Stealth[length=2.5mm]}, thick}
+]
+\node[box, minimum width=46mm] (dec) at (0,0) {\textbf{S6 decision + rationale}\\ \footnotesize logged for every ticker-day};
+\node[box, minimum width=46mm] (cls) at (0,-2.0) {\textbf{Driver classification}\\ \footnotesize pinned LLM + human subsample ($\kappa$, CI)};
+\node[box, minimum width=40mm] (par) at (6.4,1.0) {\textbf{Neutral paraphrase}\\ \footnotesize content \& sentiment preserved};
+\node[box, minimum width=40mm] (flip) at (6.4,-1.0) {\textbf{Polarity flip}\\ \footnotesize entities/figures held fixed};
+\node[box, minimum width=40mm] (re) at (11.6,0) {\textbf{Regenerated decision}\\ \footnotesize identical conditions};
+\node[box, minimum width=52mm] (met) at (11.6,-2.6) {\textbf{Metrics}\\ \footnotesize flip rate vs.\ seed baseline;\\ \footnotesize directional agreement (observable cases)};
+\node[box, minimum width=52mm, fill=blue!8] (con) at (4.6,-3.6) {\textbf{Rationale--behavior consistency}\\ \footnotesize by stated driver, overall and by regime};
+\draw[arr] (dec.east) -- (par.west);
+\draw[arr] (dec.east) -- (flip.west);
+\draw[arr] (par.east) -- (re.west);
+\draw[arr] (flip.east) -- (re.west);
+\draw[arr] (re.south) -- (met.north);
+\draw[arr] (dec.south) -- (cls.north);
+\draw[arr] (cls.south) |- (con.west);
+\draw[arr] (met.south) |- (con.east);
+\end{tikzpicture}

@@ -1,0 +1,10 @@
+pandas>=2.0
+pyyaml>=6.0
+pytest>=8.0
+lightgbm>=4.0
+# pilot/full-run only (user machine):
+yfinance>=0.2
+huggingface_hub>=0.20
+requests>=2.31
+transformers>=4.51
+# inference server (user machine, GPU): vllm>=0.8.5

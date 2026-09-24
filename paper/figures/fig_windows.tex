@@ -1,0 +1,18 @@
+% Figure: study data windows (calibration / Track A / Track B)
+\begin{tikzpicture}[font=\small]
+% axis: x = (year - 2019) * 2
+\draw[-{Stealth[length=3mm]}, thick] (-0.3,0) -- (15.9,0);
+\foreach \y/\x in {2019/0, 2020/2, 2021/4, 2022/6, 2023/8, 2024/10, 2025/12, 2026/14}{
+  \draw (\x,0) -- (\x,-0.12) node[below, font=\footnotesize] {\y};
+}
+\draw[fill=black!6]  (0,0.35) rectangle (6,1.45);
+\node[align=center, font=\footnotesize] at (3,0.9)
+  {\textbf{Calibration} 2019--2021\\ thresholds (S3/S5); S4 training};
+\draw[fill=blue!6]   (6,0.35) rectangle (10,1.45);
+\node[align=center, font=\footnotesize] at (8,0.9)
+  {\textbf{Track A} 2022--2023\\ evaluation (3 conditions)};
+\draw[fill=green!8]  (14,0.35) rectangle (15,1.45);
+\node[align=center, font=\footnotesize, anchor=south] at (14.5,1.55)
+  {\textbf{Track B} 2026-H1\\ out-of-cutoff validation};
+\node[font=\footnotesize\itshape, text=black!55] at (12,0.9) {(no data used)};
+\end{tikzpicture}

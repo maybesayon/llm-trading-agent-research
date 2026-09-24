@@ -1,0 +1,34 @@
+# D.1 Model instrument (Experimental Freeze Document §1)
+model:
+  name: Qwen3-14B
+  hf_repository: Qwen/Qwen3-14B      # verified against Hugging Face 2026-07-09
+  revision: RECORD_AT_DOWNLOAD        # freeze blocker: fill from actual download
+  downloaded_date: null               # YYYY-MM-DD, fill at download
+  parameters: 14.8B
+  context_length: 32768
+  license: apache-2.0
+
+inference:
+  framework: vllm
+  framework_version: RECORD_AT_DOWNLOAD
+  precision: bf16
+  quantization: none                  # llama.cpp Q8_0 fallback only via Amendment Record
+  enable_thinking: false              # non-thinking mode for all five roles
+
+generation:
+  # AMENDMENT A-001 (approved 2026-07-09): temperature 0.0 -> 0.7,
+  # top_p 1.0 -> 0.8, per Qwen3 vendor guidance for non-thinking mode.
+  # Category: instrument configuration correction. Not outcome-triggered.
+  # Reproducibility enforced via fixed seeds, full call caching, revision
+  # pinning, and run logging. All other generation parameters unchanged.
+  temperature: 0.7
+  top_p: 0.8
+  seeds: [11, 42, 2026]
+  max_tokens:
+    s5_scorer: 64
+    s6_agent: 512
+    rationale_classifier: 64
+    perturbation_generator: 1024
+  malformed_output_policy: retry_once_then_abstain  # abstention = hold position, counted
+
+prompts_version: A-1.0                # texts in Appendix A / freeze document

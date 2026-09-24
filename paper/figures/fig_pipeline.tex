@@ -1,0 +1,24 @@
+% Figure: end-to-end system architecture and experimental workflow
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, align=center, fill=black!4, font=\small, inner sep=5pt},
+  wide/.style={box, minimum width=128mm},
+  half/.style={box, minimum width=60mm, minimum height=11mm},
+  arr/.style={-{Stealth[length=2.5mm]}, thick}
+]
+\node[wide] (src) {\textbf{Data sources}\\ FNSPID news + prices \;$\cdot$\; Yahoo Finance \;$\cdot$\; FRED DTB3 \;$\cdot$\; Finnhub/GDELT (Track B)};
+\node[wide, below=5mm of src] (ing) {\textbf{Ingestion \& snapshots}\\ schema validation \;$\cdot$\; content-hashed snapshots + manifest \;$\cdot$\; source-version pinning};
+\node[wide, below=5mm of ing] (integ) {\textbf{Temporal-integrity layer}\\ point-in-time information sets \;$\cdot$\; look-ahead guards (injection-tested) \;$\cdot$\; M1/M2 density criterion};
+\node[half, below=5mm of integ, xshift=-34mm] (cond) {\textbf{Contamination conditions} (S5/S6)\\ original $\,\vert\,$ anonymized $\,\vert\,$ anon.\ + shuffled dates};
+\node[half, below=5mm of integ, xshift=34mm] (lad) {\textbf{Strategy ladder S1--S6}\\ daily long/flat decisions};
+\node[wide, below=21mm of integ] (eng) {\textbf{Backtest engine}\\ next-open execution \;$\cdot$\; equal-weight slots, cash at DTB3 \;$\cdot$\; 5/10/25 bps per-side costs};
+\node[half, below=5mm of eng, xshift=-34mm] (stats) {\textbf{Statistics}\\ DSR vs.\ S1 $\cdot$ stationary bootstrap $\cdot$ FF3 alpha};
+\node[half, below=5mm of eng, xshift=34mm] (aud) {\textbf{Rationale audit} (S6, \S 6)\\ taxonomy $\cdot$ paraphrase $\cdot$ polarity flip};
+\draw[arr] (src) -- (ing);
+\draw[arr] (ing) -- (integ);
+\draw[arr] (integ.south) ++(-34mm,0) -- (cond.north);
+\draw[arr] (integ.south) ++(34mm,0) -- (lad.north);
+\draw[arr] (cond.south) -- ([xshift=-34mm]eng.north);
+\draw[arr] (lad.south) -- ([xshift=34mm]eng.north);
+\draw[arr] ([xshift=-34mm]eng.south) -- (stats.north);
+\draw[arr] ([xshift=34mm]eng.south) -- (aud.north);
+\end{tikzpicture}

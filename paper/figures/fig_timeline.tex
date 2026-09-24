@@ -1,0 +1,22 @@
+% Figure: protocol-freeze and study timeline
+\begin{tikzpicture}[
+  ms/.style={draw, rounded corners=2pt, align=center, fill=black!4, font=\footnotesize, minimum width=27mm, minimum height=10mm},
+  done/.style={ms, fill=green!8},
+  arr/.style={-{Stealth[length=3mm]}, very thick}
+]
+\draw[arr] (-0.5,0) -- (15.5,0);
+\node[done] (a) at (0.8,1.1)  {Design \&\\ proposal};
+\node[done] (b) at (3.7,-1.1) {Protocol freeze v1.0\\ (+ A-001; tagged\\ pre-registration)};
+\node[done] (c) at (6.6,1.1)  {Pipeline build,\\ synthetic validation\\ (83 tests)};
+\node[ms]   (d) at (9.5,-1.1) {Pilot: data checks,\\ {[}PILOT$\rightarrow$PARAM{]}\\ values};
+\node[ms]   (e) at (12.4,1.1) {Full experiment\\ (frozen grid)};
+\node[ms]   (f) at (15.0,-1.1){Results \& final\\ manuscript};
+\foreach \n/\x in {a/0.8, b/3.7, c/6.6, d/9.5, e/12.4, f/15.0}{
+  \fill (\x,0) circle (1.6pt);
+  \draw ($(\n)!0.5!(\x,0)$) (\n) -- (\x,0);
+}
+\draw[very thick, dashed, red!70] (8.05,-2.1) -- (8.05,2.1)
+  node[above, font=\footnotesize\bfseries, red!70] {this manuscript};
+\node[font=\footnotesize, anchor=north west] at (-0.5,-2.3)
+  {Shaded milestones are complete; unshaded milestones are pending. No experiment precedes a fully valued protocol lock (App.\ D).};
+\end{tikzpicture}

@@ -1,0 +1,17 @@
+% Figure: information-flow contract (no look-ahead by construction)
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners=2pt, align=center, fill=black!4,
+              font=\small, minimum width=36mm, minimum height=13mm},
+  arr/.style={-{Stealth[length=2.5mm]}, thick}
+]
+\node[box] (n1) at (0,0)    {News published\\ through close of day $t$};
+\node[box] (n2) at (4.6,0)  {Decision at close($t$)\\ information set $\leq$ close($t$)};
+\node[box] (n3) at (9.2,0)  {Trade executed\\ at open($t{+}1$)};
+\node[box] (n4) at (13.8,0) {Return earned\\ open($t{+}1$) $\rightarrow$ open($t{+}2$)};
+\draw[arr] (n1) -- (n2);
+\draw[arr] (n2) -- (n3);
+\draw[arr] (n3) -- (n4);
+\node[font=\footnotesize\itshape, align=center] at (6.9,-1.35)
+  {Any record timestamped after close($t$) cannot reach the decision:\\
+   the harness raises an error rather than filtering silently (validated by injection tests).};
+\end{tikzpicture}
