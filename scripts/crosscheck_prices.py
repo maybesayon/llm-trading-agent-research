@@ -8,7 +8,7 @@ splits and dividends rescale historical levels but leave past returns intact.
 Sources:
   fnspid  FNSPID Stock_price/full_history.zip (Yahoo-derived, saved 2023-12-30):
           a revision check of the primary vendor, not an independent source.
-  tiingo  Tiingo EOD API; reads the key from the TIINGO_API_KEY env variable.
+  tiingo  Tiingo EOD API; key TIINGO_API_KEY from the environment or .env.
 
 Usage:
   python scripts/crosscheck_prices.py --source fnspid|tiingo
@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import argparse
 import io
-import os
 import sys
 import zipfile
 from pathlib import Path
@@ -52,9 +51,12 @@ def load_fnspid(tickers) -> pd.DataFrame:
 def load_tiingo(tickers) -> pd.DataFrame:
     import requests
 
-    key = os.environ.get("TIINGO_API_KEY")
+    sys.path.insert(0, str(ROOT))
+    from src.utils.env import get_key
+
+    key = get_key("TIINGO_API_KEY")
     if not key:
-        sys.exit("set TIINGO_API_KEY first")
+        sys.exit("set TIINGO_API_KEY (environment or .env) first")
     frames = []
     for t in tickers:
         r = requests.get(
