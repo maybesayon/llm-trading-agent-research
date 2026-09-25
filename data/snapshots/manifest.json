@@ -1,0 +1,22 @@
+[
+  {
+    "name": "prices_track_a",
+    "file": "prices_track_a_3ee7c2d69bfe.csv.gz",
+    "rows": 25160,
+    "sha256_content": "3ee7c2d69bfede122dc92a13928f7c019fb792964a03a425e509c1c49f348041",
+    "created_utc": "2026-09-25T01:06:14Z",
+    "meta": {
+      "stage": "pilot"
+    }
+  },
+  {
+    "name": "fnspid_news",
+    "file": "fnspid_news_e52a75ccd132.csv.gz",
+    "rows": 87689,
+    "sha256_content": "e52a75ccd1327e327152279407f6fc0d397ab14aa86fec2a85ec2dfa3c55064e",
+    "created_utc": "2026-09-25T01:06:15Z",
+    "meta": {
+      "stage": "pilot"
+    }
+  }
+]
