@@ -60,6 +60,9 @@ vllm serve Qwen/Qwen3-14B          # note the resolved revision in the logs
 # revision also via: huggingface-cli scan-cache | grep Qwen3-14B
 ```
 Record: revision hash, download date, vLLM version.
+Shortcut: `scripts/gpu_session.sh` does steps 4, 6 and 7 in one pass on the
+rented GPU (pins the revision, serves bf16, runs the LLM pilot, records the
+freeze values). Decide `GEN_CONFIG` first; see the script header.
 (If only smaller hardware is available: STOP and tell me — the Q8 fallback
 is an instrument amendment that must be logged before any run.)
 
