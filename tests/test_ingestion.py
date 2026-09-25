@@ -70,6 +70,24 @@ def test_news_utc_labelled_timestamps_keep_their_date():
     assert list(got["timestamp"].dt.date.astype(str)) == ["2022-01-03", "2022-01-04"]
 
 
+def test_news_mixed_timestamp_formats_all_parse():
+    # merged corpus: FNSPID "... UTC" rows alongside unlabelled rows
+    raw = pd.DataFrame(
+        {
+            "timestamp": ["2022-01-03 00:00:00 UTC", "2022-01-04 00:00:00 UTC",
+                          "2022-01-03 12:15:00", "2022-01-04 09:30:00"],
+            "ticker": ["AAA"] * 4,
+            "headline": ["a", "b", "c", "d"],
+        }
+    )
+    got = validate_news_frame(raw)
+    assert got["timestamp"].notna().all()
+    assert sorted(got["timestamp"].astype(str)) == [
+        "2022-01-03 00:00:00", "2022-01-03 12:15:00",
+        "2022-01-04 00:00:00", "2022-01-04 09:30:00",
+    ]
+
+
 def test_news_duplicate_rejection(synthetic_news):
     doubled = pd.concat([synthetic_news, synthetic_news.iloc[[0]]], ignore_index=True)
     with pytest.raises(DuplicateRecordError):

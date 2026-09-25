@@ -20,14 +20,15 @@ def validate_news_frame(
     if missing_cols:
         raise ValueError(f"News frame missing columns: {missing_cols}")
     df = df.copy()
-    ts = pd.to_datetime(df["timestamp"], errors="coerce")
-    if isinstance(ts.dtype, pd.DatetimeTZDtype):
-        # Keep the source's wall-clock value; never shift across dates.
-        # FNSPID stamps date-only records "00:00:00 UTC": converting to
-        # exchange time would move them to the previous evening (look-ahead).
-        # Dropping the label is conservative under either reading of the date.
-        ts = ts.dt.tz_localize(None)
-    df["timestamp"] = ts
+    # Parse each value on its own: a merged corpus mixes "... UTC" (FNSPID)
+    # with unlabelled stamps, and a single inferred format would silently
+    # turn the minority format into NaT. utc=True + tz_localize(None) keeps
+    # each source's wall-clock value; never shift across dates. FNSPID stamps
+    # date-only records "00:00:00 UTC": converting to exchange time would move
+    # them to the previous evening (look-ahead). (A non-UTC offset would be
+    # converted to UTC wall-clock; no current source uses one.)
+    ts = pd.to_datetime(df["timestamp"], errors="coerce", format="mixed", utc=True)
+    df["timestamp"] = ts.dt.tz_localize(None)
     if not allow_unparsed_timestamps:
         assert_no_missing(df, ["timestamp"])
     assert_no_missing(df, ["ticker", "headline"])
