@@ -72,8 +72,10 @@ Record the revision.
 ## 6. Record freeze values
 ```
 python scripts/record_freeze.py --model-revision <hash> --model-date YYYY-MM-DD \
-    --fnspid-commit <hash> --vllm-version <x.y.z>
+    --vllm-version <x.y.z>
 ```
+(Universe, FNSPID commit and cross-check source were recorded at the pilot,
+under `recorded:` in protocol.lock.yaml.)
 
 ## 7. Run the pilot
 ```
