@@ -230,8 +230,16 @@ def _write_candidate(name: str, rows: list, capped: list):
     print(df["Stock_symbol"].value_counts().reindex(list(ALIASES), fill_value=0).to_string())
 
 
+def _canonical_dates(df: pd.DataFrame) -> pd.DataFrame:
+    """Same instant, same string: '... 00:00:00 UTC' (FNSPID) and '... 00:00:00'
+    (other sources) must compare equal for de-duplication."""
+    ts = pd.to_datetime(df["Date"], errors="coerce", format="mixed", utc=True).dt.tz_localize(None)
+    return df.assign(Date=ts.dt.strftime("%Y-%m-%d %H:%M:%S").where(ts.notna(), df["Date"]))
+
+
 def contributed(cand: pd.DataFrame, base: pd.DataFrame) -> pd.DataFrame:
-    """Candidate rows not already in the FNSPID subset (exact key)."""
+    """Candidate rows not already in the FNSPID subset (exact key, dates compared as instants)."""
+    cand, base = _canonical_dates(cand).drop_duplicates(subset=KEY), _canonical_dates(base)
     k = base[KEY].drop_duplicates()
     m = cand.merge(k, on=KEY, how="left", indicator=True)
     return m[m["_merge"] == "left_only"].drop(columns="_merge")
