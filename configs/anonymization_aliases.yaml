@@ -1,0 +1,642 @@
+# Anonymization alias dictionary (Freeze Document §4). Built by
+# scripts/build_anonymization_draft.py; edit only via review, then freeze.
+status: DRAFT — author review required; frozen only when status is FROZEN
+sources:
+  wikipedia:
+    AAPL:
+      title: Apple Inc.
+      revid: 1375644246
+    MSFT:
+      title: Microsoft
+      revid: 1375562445
+    GOOGL:
+      title: Alphabet Inc.
+      revid: 1373594335
+    GOOGL+:
+      title: Google
+      revid: 1376589067
+    AMZN:
+      title: Amazon (company)
+      revid: 1376115734
+    TSLA:
+      title: Tesla, Inc.
+      revid: 1375857014
+    META:
+      title: Meta Platforms
+      revid: 1376364903
+    NVDA:
+      title: Nvidia
+      revid: 1376564277
+    BRK-B:
+      title: Berkshire Hathaway
+      revid: 1376232074
+    UNH:
+      title: UnitedHealth Group
+      revid: 1376124481
+    V:
+      title: Visa Inc.
+      revid: 1376302835
+    JPM:
+      title: JPMorgan Chase
+      revid: 1373088644
+    JNJ:
+      title: Johnson & Johnson
+      revid: 1372864936
+    HD:
+      title: Home Depot
+      revid: 1376481172
+    WMT:
+      title: Walmart
+      revid: 1376252187
+    PG:
+      title: Procter & Gamble
+      revid: 1374377704
+    BAC:
+      title: Bank of America
+      revid: 1375654174
+    MA:
+      title: Mastercard
+      revid: 1375038823
+    PFE:
+      title: Pfizer
+      revid: 1368692972
+    DIS:
+      title: The Walt Disney Company
+      revid: 1376027767
+    AVGO:
+      title: Broadcom
+      revid: 1373588777
+  wikidata: CEO (P169) and chair (P488) statements; query in data/raw/anonymization/wikidata_executives.json
+rule: a candidate is kept only if it appears (case-insensitive, word boundary) in the firm's pinned article
+shared_cities:
+- Atlanta
+- Austin
+- Charlotte
+- New York City
+- Palo Alto
+- San Francisco
+- San Jose
+- Seattle
+firms:
+  AAPL:
+    names:
+    - Apple Inc.
+    - Apple Computer
+    - Apple
+    tickers:
+    - AAPL
+    products:
+    - iPhone
+    - iPad
+    - MacBook
+    - iMac
+    - Apple Watch
+    - AirPods
+    - Apple Vision Pro
+    - Vision Pro
+    - HomePod
+    - Apple TV
+    - App Store
+    - Apple Music
+    - Apple Pay
+    - Apple Card
+    - iCloud
+    - iOS
+    - macOS
+    - Beats
+    executives:
+    - Tim Cook
+    - John Ternus
+    - Arthur Levinson
+    - Kevan Parekh
+    - Steve Jobs
+    - Steve Wozniak
+    hq:
+    - Cupertino
+    - Apple Park
+    ambiguous:
+    - Mac
+  MSFT:
+    names:
+    - Microsoft Corporation
+    - Microsoft
+    tickers:
+    - MSFT
+    products:
+    - Azure
+    - Xbox
+    - Microsoft 365
+    - Bing
+    - LinkedIn
+    - GitHub
+    - Dynamics 365
+    - OneDrive
+    - Outlook
+    - Game Pass
+    - Copilot
+    - Activision Blizzard
+    - Nuance
+    executives:
+    - Satya Nadella
+    - Brad Smith
+    - Amy Hood
+    - Bill Gates
+    - Paul Allen
+    hq:
+    - Redmond
+    ambiguous:
+    - Windows
+    - Office
+    - Teams
+    - Surface
+  GOOGL:
+    names:
+    - Alphabet Inc.
+    - Alphabet
+    - Google LLC
+    - Google
+    tickers:
+    - GOOGL
+    - GOOG
+    products:
+    - YouTube
+    - Android
+    - Gmail
+    - Google Cloud
+    - Waymo
+    - DeepMind
+    - Gemini
+    - Bard
+    - Fitbit
+    - Verily
+    - Googleplex
+    executives:
+    - Sundar Pichai
+    - Larry Page
+    - Sergey Brin
+    - Ruth Porat
+    - Anat Ashkenazi
+    - Eric Schmidt
+    hq:
+    - Mountain View
+    ambiguous:
+    - Chrome
+    - Pixel
+    - Nest
+  AMZN:
+    names:
+    - Amazon.com, Inc.
+    - Amazon.com
+    - Amazon
+    tickers:
+    - AMZN
+    products:
+    - Amazon Web Services
+    - AWS
+    - Alexa
+    - Kindle
+    - Fire TV
+    - Prime Video
+    - Amazon Prime
+    - Whole Foods Market
+    - Whole Foods
+    - Zappos
+    - Twitch
+    - Audible
+    - Amazon MGM Studios
+    - One Medical
+    - Zoox
+    - IMDb
+    - PillPack
+    executives:
+    - Jeff Bezos
+    - Andy Jassy
+    hq:
+    - Seattle
+    - Arlington County
+    ambiguous:
+    - Echo
+    - Ring
+    - Prime
+    - Blink
+  TSLA:
+    names:
+    - Tesla, Inc.
+    - Tesla Motors
+    - Tesla
+    tickers:
+    - TSLA
+    products:
+    - Model 3
+    - Model Y
+    - Model S
+    - Model X
+    - Cybertruck
+    - Cybercab
+    - Powerwall
+    - Megapack
+    - Solar Roof
+    - Autopilot
+    - Full Self-Driving
+    - Gigafactory
+    - Supercharger
+    - Tesla Energy
+    executives:
+    - Elon Musk
+    - Robyn Denholm
+    - Martin Eberhard
+    - Marc Tarpenning
+    hq:
+    - Austin
+    - Palo Alto
+    ambiguous:
+    - Semi
+  META:
+    names:
+    - Meta Platforms, Inc.
+    - Meta Platforms
+    - Meta
+    - Facebook, Inc.
+    - Facebook
+    - TheFacebook
+    tickers:
+    - META
+    - FB
+    products:
+    - Instagram
+    - WhatsApp
+    - Oculus
+    - Reality Labs
+    - Llama
+    executives:
+    - Mark Zuckerberg
+    - Sheryl Sandberg
+    - Javier Oliván
+    - Andrew Bosworth
+    - Chris Cox
+    - Susan Li
+    - David Wehner
+    - Dina Powell
+    - Eduardo Saverin
+    - Dustin Moskovitz
+    hq:
+    - Menlo Park
+    ambiguous:
+    - Messenger
+    - Threads
+    - Quest
+  NVDA:
+    names:
+    - Nvidia Corporation
+    - Nvidia
+    tickers:
+    - NVDA
+    products:
+    - GeForce
+    - Quadro
+    - CUDA
+    - DGX
+    - BlueField
+    - Tegra
+    - H100
+    - A100
+    - Blackwell
+    - Omniverse
+    - Mellanox
+    executives:
+    - Jensen Huang
+    - Colette Kress
+    - Bill Dally
+    - Chris Malachowsky
+    - Curtis Priem
+    hq:
+    - Santa Clara
+    ambiguous:
+    - RTX
+    - Grace
+    - Hopper
+  BRK-B:
+    names:
+    - Berkshire Hathaway Inc.
+    - Berkshire Hathaway
+    - Berkshire
+    tickers:
+    - BRK-B
+    - BRK.B
+    - BRK.A
+    - BRK-A
+    - BRK/B
+    - BRK
+    products:
+    - GEICO
+    - BNSF
+    - Berkshire Hathaway Energy
+    - Dairy Queen
+    - Duracell
+    - See's Candies
+    - Precision Castparts
+    - Fruit of the Loom
+    - NetJets
+    - Clayton Homes
+    - Lubrizol
+    executives:
+    - Warren Buffett
+    - Charlie Munger
+    - Greg Abel
+    - Ajit Jain
+    - Howard Graham Buffett
+    - Todd Combs
+    - Ted Weschler
+    hq:
+    - Omaha
+    ambiguous:
+    - Pilot
+  UNH:
+    names:
+    - UnitedHealth Group Incorporated
+    - UnitedHealth Group
+    - UnitedHealth
+    - UnitedHealthcare
+    tickers:
+    - UNH
+    products:
+    - Optum
+    - OptumRx
+    - Optum Health
+    - Change Healthcare
+    executives:
+    - Stephen J. Hemsley
+    - Stephen Hemsley
+    - Andrew Witty
+    - David Wichmann
+    - Brian Thompson
+    - Tim Noel
+    - Richard T. Burke
+    hq:
+    - Minnetonka
+    - Eden Prairie
+    ambiguous: []
+  V:
+    names:
+    - Visa Inc.
+    - Visa
+    tickers:
+    - V
+    products:
+    - BankAmericard
+    - Visa Electron
+    - Plaid
+    executives:
+    - Ryan McInerney
+    - Alfred F. Kelly
+    - Al Kelly
+    - John F. Lundgren
+    - Dee Hock
+    hq:
+    - San Francisco
+    - Foster City
+    ambiguous: []
+  JPM:
+    names:
+    - JPMorgan Chase & Co.
+    - JPMorgan Chase
+    - JPMorgan
+    - J.P. Morgan
+    - JP Morgan
+    - J. P. Morgan
+    tickers:
+    - JPM
+    products:
+    - Chase Bank
+    - First Republic
+    - One Equity Partners
+    executives:
+    - Jamie Dimon
+    - Jennifer Piepszak
+    - Daniel Pinto
+    - Marianne Lake
+    hq:
+    - 270 Park Avenue
+    - New York City
+    ambiguous:
+    - Chase
+  JNJ:
+    names:
+    - Johnson & Johnson
+    - J&J
+    - Johnson and Johnson
+    tickers:
+    - JNJ
+    products:
+    - Janssen
+    - Kenvue
+    - Tylenol
+    - Neutrogena
+    - Band-Aid
+    - Listerine
+    - Stelara
+    - Darzalex
+    - Abiomed
+    executives:
+    - Joaquin Duato
+    - Alex Gorsky
+    - John C. Reed
+    - Robert Wood Johnson
+    hq:
+    - New Brunswick
+    ambiguous: []
+  HD:
+    names:
+    - The Home Depot, Inc.
+    - The Home Depot
+    - Home Depot
+    tickers:
+    - HD
+    products:
+    - HD Supply
+    - SRS Distribution
+    - Home Depot Pro
+    executives:
+    - Ted Decker
+    - Craig Menear
+    - Richard McPhail
+    - Bernard Marcus
+    - Arthur Blank
+    - Ken Langone
+    hq:
+    - Atlanta
+    ambiguous: []
+  WMT:
+    names:
+    - Walmart Inc.
+    - Walmart
+    - Wal-Mart Stores
+    - Wal-Mart
+    tickers:
+    - WMT
+    products:
+    - Sam's Club
+    - Walmart+
+    - Flipkart
+    - Asda
+    - Jet.com
+    executives:
+    - Doug McMillon
+    - John Furner
+    - Greg Penner
+    - S. Robson Walton
+    - Sam Walton
+    hq:
+    - Bentonville
+    ambiguous: []
+  PG:
+    names:
+    - The Procter & Gamble Company
+    - Procter & Gamble
+    - P&G
+    - Procter and Gamble
+    tickers:
+    - PG
+    products:
+    - Pampers
+    - Ariel
+    - Gillette
+    - Pantene
+    - Head & Shoulders
+    - Olay
+    - Oral-B
+    - Downy
+    - Charmin
+    - Febreze
+    - Vicks
+    - Old Spice
+    - Braun
+    - Swiffer
+    executives:
+    - Shailesh Jejurikar
+    - Jon Moeller
+    - David S. Taylor
+    - William Procter
+    - James Gamble
+    hq:
+    - Cincinnati
+    ambiguous:
+    - Tide
+    - Crest
+    - Always
+    - Dawn
+    - Bounty
+    - Cascade
+  BAC:
+    names:
+    - Bank of America Corporation
+    - Bank of America
+    - BofA
+    - BofA Securities
+    tickers:
+    - BAC
+    products:
+    - Merrill Lynch
+    - Merrill
+    executives:
+    - Brian Moynihan
+    - Bruce Thompson
+    hq:
+    - Charlotte
+    - Bank of America Corporate Center
+    - Bank of America Tower
+    ambiguous: []
+  MA:
+    names:
+    - Mastercard Incorporated
+    - Mastercard Inc.
+    - Mastercard
+    tickers:
+    - MA
+    products:
+    - Maestro
+    - Cirrus
+    - Mondex
+    - Masterpass
+    executives:
+    - Michael Miebach
+    - Merit Janow
+    - Ajay Banga
+    hq:
+    - Purchase, New York
+    - 2000 Purchase Street
+    ambiguous: []
+  PFE:
+    names:
+    - Pfizer Inc.
+    - Pfizer
+    tickers:
+    - PFE
+    products:
+    - Comirnaty
+    - Paxlovid
+    - Seagen
+    - Viagra
+    - Lipitor
+    - Eliquis
+    - Prevnar
+    - Xeljanz
+    executives:
+    - Albert Bourla
+    - Ian Read
+    - Charles Pfizer
+    - Charles F. Erhart
+    hq:
+    - The Spiral
+    - New York City
+    ambiguous: []
+  DIS:
+    names:
+    - The Walt Disney Company
+    - Walt Disney Company
+    - Walt Disney
+    - Disney
+    tickers:
+    - DIS
+    products:
+    - Disney+
+    - ESPN
+    - Hulu
+    - Marvel
+    - Pixar
+    - Lucasfilm
+    - Disneyland
+    - Walt Disney World
+    - 20th Century Studios
+    - ABC
+    executives:
+    - Bob Iger
+    - Bob Chapek
+    - Josh D'Amaro
+    - Dana Walden
+    - Susan Arnold
+    - James P. Gorman
+    - Hugh Johnston
+    - Roy O. Disney
+    hq:
+    - Burbank
+    ambiguous: []
+  AVGO:
+    names:
+    - Broadcom Inc.
+    - Broadcom
+    tickers:
+    - AVGO
+    products:
+    - VMware
+    - Symantec
+    - CA Technologies
+    - Brocade
+    - LSI Corporation
+    executives:
+    - Hock Tan
+    - Henry Samueli
+    hq:
+    - Palo Alto
+    - San Jose
+    ambiguous: []

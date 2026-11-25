@@ -96,6 +96,7 @@ def main():
                          m1_threshold=crit["m1_threshold"], m2_threshold=crit["m2_threshold"],
                          window=crit["trailing_window_trading_days"])
     failing = rep[~rep["passes"]]["ticker"].tolist()
+    (ROOT / "results/pilot").mkdir(parents=True, exist_ok=True)
     rep.to_csv(ROOT / "results/pilot/density_report.csv", index=False)
     log("Density (M1/M2)", f"{len(failing)}/{len(universe)} tickers fail "
         f"(threshold: >{crit['max_failing_tickers']} triggers amendment); failing={failing}",

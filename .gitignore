@@ -29,3 +29,7 @@ logs/*
 
 # --- local assistant context: never committed ---
 CLAUDE.md
+
+# --- API keys (local only) and third-party headline samples ---
+.env
+results/a002/*_precision_sample.csv

@@ -1,0 +1,98 @@
+[
+  {
+    "name": "prices_track_a",
+    "file": "prices_track_a_3ee7c2d69bfe.csv.gz",
+    "rows": 25160,
+    "sha256_content": "3ee7c2d69bfede122dc92a13928f7c019fb792964a03a425e509c1c49f348041",
+    "created_utc": "2026-09-25T01:06:14Z",
+    "meta": {
+      "stage": "pilot"
+    }
+  },
+  {
+    "name": "fnspid_news",
+    "file": "fnspid_news_e52a75ccd132.csv.gz",
+    "rows": 87689,
+    "sha256_content": "e52a75ccd1327e327152279407f6fc0d397ab14aa86fec2a85ec2dfa3c55064e",
+    "created_utc": "2026-09-25T01:06:15Z",
+    "meta": {
+      "stage": "pilot"
+    }
+  },
+  {
+    "name": "risk_free_dtb3",
+    "file": "risk_free_dtb3_a85746adfda3.csv.gz",
+    "rows": 1955,
+    "sha256_content": "a85746adfda3a5464d440f643139370a0098f65d7406acaeda52b248e399120a",
+    "created_utc": "2026-09-25T07:23:57Z",
+    "meta": {
+      "provider": "FRED",
+      "series": "DTB3",
+      "retrieved_utc": "2026-09-25T07:23:57Z",
+      "yfinance": "1.7.0",
+      "stage": "reference"
+    }
+  },
+  {
+    "name": "sp500_tr",
+    "file": "sp500_tr_8d0dddba5f2b.csv.gz",
+    "rows": 1883,
+    "sha256_content": "8d0dddba5f2b4b2798e001be801d618898e2406ee6d2e9ae821bf3f462fba8da",
+    "created_utc": "2026-09-25T07:23:57Z",
+    "meta": {
+      "provider": "yahoo",
+      "symbol": "^SP500TR",
+      "retrieved_utc": "2026-09-25T07:23:57Z",
+      "yfinance": "1.7.0",
+      "stage": "reference"
+    }
+  },
+  {
+    "name": "vix",
+    "file": "vix_3870287e0ecb.csv.gz",
+    "rows": 1884,
+    "sha256_content": "3870287e0ecbf680d50a33f7cd736a5aa19ab87d907ad6255c7e0757810ef1d2",
+    "created_utc": "2026-09-25T07:23:57Z",
+    "meta": {
+      "provider": "yahoo",
+      "symbol": "^VIX",
+      "retrieved_utc": "2026-09-25T07:23:57Z",
+      "yfinance": "1.7.0",
+      "stage": "reference"
+    }
+  },
+  {
+    "name": "ff_factors_daily",
+    "file": "ff_factors_daily_4be2df59db38.csv.gz",
+    "rows": 1883,
+    "sha256_content": "4be2df59db38a615dccf2f33d74c78ea84f9193d3685e65f67d48219b0b3f18b",
+    "created_utc": "2026-09-25T07:23:57Z",
+    "meta": {
+      "provider": "french_data_library",
+      "file": "F-F_Research_Data_Factors_daily",
+      "zip_sha256": "1916d331c2c51d2aee3d00215897d2b8e5995cb387f1f4569ba46bff5fb049a8",
+      "retrieved_utc": "2026-09-25T07:23:57Z",
+      "yfinance": "1.7.0",
+      "stage": "reference"
+    }
+  },
+  {
+    "name": "prices_track_b",
+    "file": "prices_track_b_980dec77bcae.csv.gz",
+    "rows": 2460,
+    "sha256_content": "980dec77bcae59567a4a27b9d628f08ae0590ae54637982405a6398666bd03fa",
+    "created_utc": "2026-09-25T07:23:57Z",
+    "meta": {
+      "source": "yfinance",
+      "library_version": "1.7.0",
+      "auto_adjust": true,
+      "window": [
+        "2026-01-02",
+        "2026-06-30"
+      ],
+      "retrieved_utc": "2026-09-25T07:23:57Z",
+      "yfinance": "1.7.0",
+      "stage": "reference"
+    }
+  }
+]

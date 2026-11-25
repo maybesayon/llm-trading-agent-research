@@ -2,7 +2,15 @@
 universe:
   rule: "top 20 S&P 500 constituents by market cap as of 2021-12-31"
   as_of: "2021-12-31"
-  tickers: []                         # filled by the rule at pilot; frozen thereafter
+  # Rule applied 2026-09-24 at firm level, market-cap rank order. Source:
+  # companiesmarketcap.com US ranking, Internet Archive captures 20220101164532
+  # and 20220102070041 (post-2021-12-31 close); S&P 500 membership checked
+  # against slickcharts.com/sp500 captures 20211230201927 and 20220103233156.
+  # Share line: GOOGL for Alphabet (Class A); BRK-B for Berkshire (the
+  # constituent class); META for Meta (traded as FB on 2021-12-31).
+  # #21 (excluded): ADBE $269.80B vs #20 AVGO $274.73B.
+  tickers: [AAPL, MSFT, GOOGL, AMZN, TSLA, META, NVDA, BRK-B, UNH, V,
+            JPM, JNJ, HD, WMT, PG, BAC, MA, PFE, DIS, AVGO]   # frozen
 
 windows:
   calibration: { start: "2019-01-02", end: "2021-12-31" }
@@ -12,13 +20,19 @@ windows:
 sources:
   fnspid:
     repository: "https://github.com/Zdong104/FNSPID_Financial_News_Dataset"
-    commit: RECORD_AT_DOWNLOAD
+    data: "huggingface.co/datasets/Zihan1004/FNSPID"   # where the files live
+    commit: bf9189c41527198897d1af3e17b1a0095279fc45    # HF dataset revision, recorded 2026-09-24
+    sha256:                                            # published LFS checksums, verified locally
+      Stock_news/All_external.csv: 5d4c018036bd82ca821da71b7a9c0c7db3289642e0fc6f897ea69f4a0c5135c3
+      Stock_news/nasdaq_exteral_data.csv: 1a7a3eb8e6b97ec19f286f2cfca3371542bddb272ab1eb8f36e33ad98fa5c4da
+    # subset: scripts/build_fnspid_subset.py (both news files, sha256-verified)
     news_column_map:                  # confirm against actual files at pilot [PILOT->PARAM]
       Date: timestamp
       Stock_symbol: ticker
       Article_title: headline
   prices_primary: yfinance            # version recorded in snapshot manifest
-  prices_crosscheck: TBD_SECOND_SOURCE  # e.g., Stooq; fixed at pilot [PILOT->PARAM]
+  prices_crosscheck: tiingo           # fixed at pilot 2026-09-24 (Stooq blocks automated access)
+  prices_vintage_check: fnspid_full_history  # Yahoo-derived, saved 2023-12-30; revision check only
   risk_free: { provider: FRED, series: DTB3 }
   sp500_tr: { provider: yahoo, symbol: "^SP500TR" }
   vix: { provider: yahoo, symbol: "^VIX" }

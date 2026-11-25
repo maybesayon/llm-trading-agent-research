@@ -23,14 +23,20 @@ frozen:
   model: { repo: "Qwen/Qwen3-14B", precision: bf16, quantization: none }
   amendment_policy: "append-only log; data/infrastructure causes only"
 
+# Values recorded at the Phase 3 pilot (2026-09-24); sources in configs/data.yaml
+# and results/pilot/pilot_notes.md.
+recorded:
+  universe_tickers: [AAPL, MSFT, GOOGL, AMZN, TSLA, META, NVDA, BRK-B, UNH, V,
+                     JPM, JNJ, HD, WMT, PG, BAC, MA, PFE, DIS, AVGO]
+  fnspid: { dataset: Zihan1004/FNSPID, commit: bf9189c41527198897d1af3e17b1a0095279fc45,
+            news_column_map: confirmed (Date, Stock_symbol, Article_title) }
+  prices_crosscheck: tiingo            # Stooq blocks automated access; run pending API key
+
 freeze_status:
   pending:
     - model.revision (record at download)
     - model.downloaded_date
     - inference.framework_version
-    - universe.tickers (apply rule at pilot)
-    - fnspid.commit + news_column_map confirmation
-    - prices_crosscheck source selection
     - track_b_news final configuration
     - audit sample N + human-validation N (budget rule + pilot cost)
   amendments:                         # append-only; see Freeze Document D.8

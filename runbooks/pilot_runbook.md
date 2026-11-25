@@ -19,12 +19,15 @@ into `data/raw/universe_source.txt`). Enter the 20 tickers into
 
 ## 2. FNSPID news subset (D.2)
 ```
-huggingface-cli download Zdong104/FNSPID_Financial_News_Dataset --repo-type dataset ...
-# or clone https://github.com/Zdong104/FNSPID_Financial_News_Dataset per its README
+# the data lives at Zihan1004/FNSPID (the GitHub repo only links to it)
+huggingface-cli download Zihan1004/FNSPID --repo-type dataset \
+    --revision bf9189c41527198897d1af3e17b1a0095279fc45 --include "Stock_news/*" \
+    --local-dir data/raw/fnspid
+python scripts/build_fnspid_subset.py   # checks sha256s recorded in configs/data.yaml
 ```
 - Record the dataset commit hash.
 - Extract news for your 20 tickers, 2019-01-01..2023-12-31, into
-  `data/raw/fnspid_news_subset.csv`.
+  `data/raw/fnspid_news_subset.csv` (the script does this, verifying sha256).
 - Confirm the real column names; if they differ from
   `configs/data.yaml -> sources.fnspid.news_column_map`, update the MAP
   (that is a data-integrity configuration, not a protocol change).
@@ -36,14 +39,18 @@ import sys; sys.path.insert(0, '.')
 from src.data_ingestion.prices import YFinancePriceSource
 import yaml
 cfg = yaml.safe_load(open('configs/data.yaml'))
-df = YFinancePriceSource().fetch(cfg['universe']['tickers'], '2019-01-02', '2023-12-29')
+df = YFinancePriceSource().fetch(cfg['universe']['tickers'], '2019-01-02', '2023-12-30')  # end is exclusive
 df.to_csv('data/raw/prices_track_a.csv', index=False)
 print(len(df), 'rows;', YFinancePriceSource().metadata())
 EOF
 ```
-Also download the same tickers from a second source (e.g., Stooq CSV export)
-into `data/raw/prices_crosscheck.csv` and note the source in
-`configs/data.yaml -> sources.prices_crosscheck`.
+Then cross-check against a second source (Stooq now blocks automated
+downloads; Tiingo was fixed at pilot, key in TIINGO_API_KEY):
+```
+python scripts/crosscheck_prices.py --source tiingo   # independent vendor
+python scripts/crosscheck_prices.py --source fnspid   # Yahoo vintage check
+```
+and note the source in `configs/data.yaml -> sources.prices_crosscheck`.
 
 ## 4. Model instrument (D.1) — the critical freeze item
 Hardware: bf16 Qwen3-14B needs ~30+ GB VRAM (A100-40GB class; rentable). Then:
@@ -53,6 +60,9 @@ vllm serve Qwen/Qwen3-14B          # note the resolved revision in the logs
 # revision also via: huggingface-cli scan-cache | grep Qwen3-14B
 ```
 Record: revision hash, download date, vLLM version.
+Shortcut: `scripts/gpu_session.sh` does steps 4, 6 and 7 in one pass on the
+rented GPU (pins the revision, serves bf16, runs the LLM pilot, records the
+freeze values). Decide `GEN_CONFIG` first; see the script header.
 (If only smaller hardware is available: STOP and tell me — the Q8 fallback
 is an instrument amendment that must be logged before any run.)
 
@@ -65,8 +75,10 @@ Record the revision.
 ## 6. Record freeze values
 ```
 python scripts/record_freeze.py --model-revision <hash> --model-date YYYY-MM-DD \
-    --fnspid-commit <hash> --vllm-version <x.y.z>
+    --vllm-version <x.y.z>
 ```
+(Universe, FNSPID commit and cross-check source were recorded at the pilot,
+under `recorded:` in protocol.lock.yaml.)
 
 ## 7. Run the pilot
 ```
