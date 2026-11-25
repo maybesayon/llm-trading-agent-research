@@ -60,6 +60,16 @@ Upadhyay, S. (2026). *How much of LLM trading-agent performance survives
 bias-controlled evaluation? An independent study with a rationale audit.*
 Pre-experiment manuscript v2.0.
 
+## Authorship and contributors
+
+**Author:** Sayon Upadhyay (Dept. of Computer Science, University of North
+Texas; independent student research). The study design, protocol, and
+research decisions are the author's.
+
+**Contributor:** Claude (AI assistant, Anthropic) assisted with implementation,
+data-pipeline work, and drafting under the author's direction. The author
+reviews and is responsible for all content.
+
 ## Disclaimer
 
 Simulated backtesting only. Nothing here is investment advice.
